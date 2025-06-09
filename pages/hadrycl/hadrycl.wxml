@@ -1,0 +1,42 @@
+<!--pages/hadrycl/hadrycl.wxml-->
+<!--pages/hadrycl/hadrycl.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">已提交书籍列表</text>
+  </view>
+  <view class="empty-tip" wx:if="{{books.length === 0}}">
+    <text>暂无已提交书籍</text>
+  </view>
+  
+  <view class="book-list" wx:else>
+    <view class="book-item" wx:for="{{books}}" wx:key="index">
+      <view class="book-header">
+        <text class="book-title">{{item.pname}}</text>
+        <text class="book-category">{{item.category}}</text>
+      </view>
+      
+      <view class="book-info">
+        <view class="info-row">
+          <text class="info-label">价格：</text>
+          <text class="info-value">{{item.price}}元</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">新旧程度：</text>
+          <text class="info-value">{{item.condition}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">评分：</text>
+          <text class="info-value">{{item.rating}}分</text>
+        </view>
+        <view class="info-row" wx:if="{{item.note}}">
+          <text class="info-label">备注：</text>
+          <text class="info-value">{{item.note}}</text>
+        </view>
+      </view>
+      
+      <view class="book-image" wx:if="{{item.image}}">
+        <image src="{{item.image}}" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+</view>

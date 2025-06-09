@@ -1,0 +1,15 @@
+<!--pages/sale/sale.wxml-->
+<!--pages/sale/sale.wxml-->
+<view class="page">
+  <image src="/images/背景.png" class="banner"></image>
+  <view class="content-wrapper">
+    <view class="title">给二手书一个新家</view>
+    <button class="recycle-btn" bindtap="goToRecycle">书籍回收</button>
+    <button class="submitted-btn" bindtap="viewSubmittedBooks">已提交书目</button>
+    <view class="tips">
+      <view class="tip-item">拍摄图书正反面照片</view>
+      <view class="tip-item">按提示上传书名，价格，几成新，交易方式等</view>
+      <view class="tip-item">及时关注消息动态可以更快出书哦</view>
+    </view>
+  </view>
+</view>

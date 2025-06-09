@@ -1,0 +1,57 @@
+<view>
+ <!--设置按钮-->
+ <view class="setting-item">
+  <navigator url="/pages/setting/setting"><image src="/images/setting.jpg" class="setting"></image></navigator>
+ </view> 
+ <!--个人资料-->
+  <view class="per">
+  <!--头像-->
+    <view class="per-show">
+    <image src="{{userInfo.imageSrc}}" class="per-item" mode="aspectFill"></image>
+    </view>  
+    <!--基本信息-->
+    <view class="per-info">
+      <text>昵称：{{userInfo.nickname}}</text>
+      <text>性别：{{userInfo.gender}}</text>
+      <text wx:if="{{userInfo.birthday}}">生日：{{userInfo.birthday}}</text>
+      <text>电话：18090987867</text>
+    </view> 
+    </view>
+  </view>
+  <!--导航-->
+  <view class="nav-container">    
+    <view class="nav-item" wx:for="{{cataloglist}}" wx:key="cakey" wx:for-item="ca" data-ca="{{ca}}" bind:tap="doCatalogClick">
+      <image src="{{ca.pic}}" class="item-cover" mode="aspectFill"/>
+      <text style="font-size: 30rpx; font-weight: bolder;">{{ca.cname}}</text>
+    </view>
+  </view>
+
+  <!--交易任务deal transaction-->
+  <view class="deal">  
+    <view style="display: flex; flex-direction: row; width: 100%; margin-top: 10px; margin-left: 10px;">
+      <text style="font-size: 30rpx; font-weight: bolder;">我的订单</text>
+    </view>
+  <view class="buy">
+    <text style="font-size: 40rpx; font-weight: bolder;">我买的</text>
+    <button style="width:120rpx; font-size: 10px;font-weight: bolder;background-color: #ececc3; margin-left: 10px; border: solid; border-color: #ececc3; border-radius: 20px;text-indent: 5px;padding: 0px;" data-product="{{item}}" bind:tap="doBuyClick">
+          全部 >
+          </button>
+    <view  wx:for="{{buylist}}" wx:key="buykey" wx:for-item="buy" data-buy="{{buy}}" bind:tap="doBuyClick"> 
+        <text >{{buy}}</text>
+      </view>
+  </view>
+    <view class="sell">
+      <text style="font-size: 40rpx; font-weight: bolder;">我卖的</text>
+      <button style="width:120rpx; font-size: 10px;font-weight: bolder;background-color: #ececc3; margin-left: 10px; border: solid; border-color: #ececc3; border-radius: 20px;text-indent: 5px;padding: 0px;" data-product="{{item}}" bind:tap="doSellClick">
+          全部 >
+          </button>
+      <view wx:for="{{selllist}}" wx:key="sellkey" wx:for-item="sell" data-sell="{{sell}}" bind:tap="doSellClick">
+      <text>{{sell}}</text>
+    </view>
+  </view>
+</view>
+<view style="display: flex; flex-direction: column; width: 100%; margin-top: 20px;margin-left: 20px;">
+  <text style="font-size: 12.5px;margin-top: 20px;">收货地址：西安市雁塔区高斯路皇家花园1号</text>
+  <text style="font-size: 12.5px;margin-top: 20px;">收货人:马超</text>
+  <text style="font-size: 12.5px;margin-top: 20px;">电话：18090987867</text>
+</view>

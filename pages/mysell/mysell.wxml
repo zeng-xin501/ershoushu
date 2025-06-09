@@ -1,0 +1,70 @@
+<view class="page">
+  <!-- 搜索框区域 -->
+  <view class="search-box">
+    <icon type="search" size="14" color="#999"></icon>
+    <input 
+      class="search-input" 
+      placeholder="搜索商品名称" 
+      value="{{searchKeyword}}"
+      bindinput="onSearchInput"
+    />
+    <view class="search-clear" wx:if="{{searchKeyword}}" bindtap="clearSearch">
+      <icon type="clear" size="14" color="#999"></icon>
+    </view>
+  </view>
+
+  <!-- 分类目录栏 -->
+  <view class="tabs">
+    <view 
+      wx:for="{{tabs}}" 
+      wx:key="index" 
+      class="tab-item {{currentTabIndex === index ? 'active' : ''}}"
+      data-index="{{index}}"
+      bindtap="switchTab"
+    >
+      {{item}}
+    </view>
+  </view>
+
+  <!-- 加载指示器 -->
+  <view wx:if="{{isLoading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 订单列表区域 -->
+  <view class="order-list">
+    <block wx:if="{{!isLoading && filteredOrderList.length > 0}}">
+      <view 
+        wx:for="{{filteredOrderList}}" 
+        wx:key="id" 
+        class="order-item"
+      >
+        <view class="order-header">
+          <text>订单号: {{item.id}}</text>
+          <text class="status">{{item.statusText}}</text>
+        </view>
+        <view class="order-content">
+  <image src="{{item.image}}" class="goods-image"></image>
+  <view class="book-info">
+    <view class="book-name">{{item.bookName}}</view>
+    <view class="book-price">¥{{item.price}}</view>
+    <view class="book-condition">成色: {{item.condition}}</view>
+  </view>
+</view>
+        <view class="order-footer">
+          <block wx:if="{{item.status === 2}}">
+            <button bindtap="confirmPickup" data-id="{{item.id}}" class="confirm-btn">确认取件</button>
+          </block>
+          <block wx:if="{{item.status === 3}}">
+            <text class="completed-text">已完成</text>
+          </block>
+        </view>
+      </view>
+    </block>
+    
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!isLoading && filteredOrderList.length === 0}}">
+      <text>暂无相关订单</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,84 @@
+/**index.wxss**/
+page {
+  background-color: #98c99a;
+  padding-bottom: 100rpx;
+}
+
+.banner{
+  width: 100%;
+  height: 350rpx;
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: hidden;
+}
+
+/* 推荐商品区域样式 */
+.recommend-container {
+	padding: 20rpx;
+}
+
+.recommend-title {
+  font-size: 45rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+	padding-left: 10rpx;
+	color:#395a3a;
+}
+
+.shaixuan{
+	width: 20px;
+	height: 20px;
+}
+
+.no-results{
+	text-align: center;
+	padding:40rpx;
+	color: #666;
+	font-size: 28rpx;
+}
+
+.recommend-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recommend-column {
+  width: 49%; /* 留出一些间距 */
+}
+
+.recommend-item {
+  background: #ffffff;
+  border-radius: 2rpx;
+  margin-bottom: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.recommend-image {
+  width: 100%;
+	height: 180px;
+	display: block;
+}
+
+.recommend-info {
+	padding: 16rpx;
+	background-color: #dff0c0;
+}
+
+.recommend-name {
+  font-size: 28rpx;
+  color: #333;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin-bottom: 10rpx;
+}
+
+.recommend-price {
+  font-size: 32rpx;
+  color: #9e4143;
+  font-weight:150;
+}

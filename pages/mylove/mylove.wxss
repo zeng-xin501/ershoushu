@@ -1,0 +1,38 @@
+/* pages/mylove/mylove.wxss */
+/* pages/mylove/mylove.wxss */
+.content-list{
+  height:700px;
+}
+
+.content-item{
+  display: flex;
+  padding: 20rpx;
+  margin: 15rpx;
+  background: rgb(212, 231, 191);
+  border-radius: 10rpx;
+}
+
+.item-cover{
+  width:200rpx;
+  height:200rpx;
+  border-radius: 20rpx;
+}
+
+.item-info{
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.item-title{
+  font-size: 32rpx;
+  color: #333;
+}
+
+.item-desc{
+  font-size: 26rpx;
+  color: #666;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow:hidden;
+}

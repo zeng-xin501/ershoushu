@@ -1,0 +1,12 @@
+<!--pages/feedback/feedback.wxml-->
+<!--pages/feedback/feedback.wxml-->   
+<view class="page">
+    <view class="text-item">
+      <text style="font-size: 30px;font-weight: bolder;">想要给我们的反馈</text>
+    </view>
+    <view class="feedback-input">
+      <input placeholder="请输入内容" value="{{inputValue}}"bindinput="inputChange"/>
+    </view>
+    
+      <button bind:tap="submitForm" style="background-color: rgb(156, 182, 85);width: 40%;margin-top:200rpx;margin-left: 100px; border-radius: 10px;">提交</button>
+    </view>

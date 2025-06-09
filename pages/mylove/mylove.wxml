@@ -1,0 +1,19 @@
+<!--pages/mylove/mylove.wxml-->
+<!--pages/mylove/mylove.wxml-->
+   <!--显示收藏的商品列表信息-->
+  <scroll-view class="content-list" scroll-y>
+    <block wx:for="{{lovelist}}" wx:key="productid">
+      <view data-product="{{item}}"  class="content-item">
+         <!--item表示每个商品对象-->
+        <image src="{{item.image}}" class="item-cover"data-product="{{item}}"  bind:tap="doshowDetail" mode="aspectFill"/>
+        <view class="item-info">
+          <text class="item-title"data-product="{{item}}"  bind:tap="doshowDetail">{{item.name}}</text>
+          <text class="item-desc"data-product="{{item}}"  bind:tap="doshowDetail">{{item.price}}</text>
+          <text class="item-desc"data-product="{{item}}"  bind:tap="doshowDetail">{{item.note}}</text>
+          <button style="width: 250rpx; font-size: 10px; background-color: #eef093; margin-top: 20px; border: solid; border-color: #1fbb4e; border-radius: 20px;;margin-left: 240rpx;" data-pid="{{item.pid}}" bind:tap="dolovedelclick">
+          移除收藏的商品
+          </button>
+        </view>
+      </view>
+    </block>
+  </scroll-view>

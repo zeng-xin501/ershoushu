@@ -1,0 +1,26 @@
+<!--pages/detail/detail.wxml-->
+
+<view>
+  <!-- 图书封面 -->
+  <view class="book-cover">
+    <image src="{{product.image}}" mode="aspectFit"></image>
+  </view>
+
+  <!-- 图书信息 -->
+  <view class="book-info">
+    <view class="book-title">{{product.B_name}}</view>
+    <view class="book-score">豆瓣评分：{{product.B_score}}</view>
+		<view class="book-new">新旧程度：{{product.B_new}}</view>
+    <view class="book-price">¥{{product.B_price}}</view>
+    <view class="book-desc">
+      <text class="desc-title">内容简介：</text>
+      <text class="desc-content">{{product.B_description}}</text>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="action-bar">
+    <button class="back-btn" data-pd="{{product}}" bindtap="doloveclick">收藏商品</button>
+    <button class="cart-btn" data-pd="{{product}}" bindtap="docartclick">加入购物车</button>
+  </view>
+</view>

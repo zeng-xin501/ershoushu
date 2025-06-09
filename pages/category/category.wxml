@@ -1,0 +1,53 @@
+<!--pages/category/category.wxml-->
+
+<view class="container">
+
+  <!-- 分类导航和内容区 -->
+  <view class="main-content">
+    <!-- 左侧分类导航 -->
+    <view class="category-nav">
+      <view 
+        wx:for="{{categories}}" 
+        wx:key="id"
+        class="category-item {{currentCategory === item.id ? 'active' : ''}}"
+        bindtap="switchCategory"
+				data-id="{{item.id}}"
+        data-name="{{item.name}}"
+      >
+        {{item.name}}
+      </view>
+    </view>
+
+    <!-- 右侧分类内容 -->
+    <view class="category-content">
+      <!-- 加载状态 -->
+      <view class="loading-container" wx:if="{{isLoading}}">
+        <view class="loading"></view>
+        <text class="loading-text">加载中...</text>
+      </view>
+      
+      <!-- 空状态 -->
+      <view class="empty-container" wx:elif="{{books.length === 0 && !isLoading}}">
+        <text class="empty-text">暂无图书</text>
+      </view>
+      
+      <!-- 图书列表 -->
+      <view class="book-list" wx:else>
+        <view 
+          class="book-item" 
+          wx:for="{{books}}" 
+          wx:key="id"
+          bindtap="gotoDetail"
+          data-book="{{item}}"
+        >
+          <image data-product="{{item}}" bind:tap="doshowDetail"	class="book-image" src="{{item.image}}" mode="aspectFill"></image>
+          <view  data-product="{{item}}" bind:tap="doshowDetail" bind:tap="doshowDetail" class="book-info">
+            <text class="book-name">{{item.name}}</text>
+            <text class="book-price">¥{{item.price}}</text>
+						<text class="book-score">评分:{{item.B_score}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

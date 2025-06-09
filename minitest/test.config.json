@@ -1,0 +1,29 @@
+{
+  "treeData": [
+    {
+      "title": "minitest-1",
+      "caseId": "fb2bbd74-d8b0-4437-9282-ed429eaecd9c",
+      "rootPath": ""
+    },
+    {
+      "title": "minitest-3",
+      "caseId": "098a68d6-3e8d-4991-b5e8-34e80de8d040",
+      "rootPath": ""
+    },
+    {
+      "title": "minitest-2",
+      "caseId": "4aae9654-8faf-42cf-af80-7b80b72c2977",
+      "rootPath": ""
+    },
+    {
+      "title": "minitest-4",
+      "caseId": "d9e0a836-b65f-4a19-a796-2a2d22bb4991",
+      "rootPath": ""
+    },
+    {
+      "title": "minitest-5",
+      "caseId": "7b1929dd-a548-41b0-9e2b-435940e94209",
+      "rootPath": ""
+    }
+  ]
+}

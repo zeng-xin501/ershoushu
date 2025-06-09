@@ -1,0 +1,59 @@
+{
+  "pages": [
+		"pages/index/index",
+		"pages/sale/sale",
+		"pages/cart/cart",
+		"pages/mine/mine",
+		"pages/detail/detail",
+		"pages/category/category",
+		"pages/recycle/recycle",
+		"pages/hadrycl/hadrycl",
+		"pages/mylove/mylove",
+		"pages/mysell/mysell",
+		"pages/myOrders/myOrders",
+		"pages/feedback/feedback",
+		"pages/wallet/wallet",
+		"pages/setting/setting",
+		"pages/setting/person/person",
+		"pages/setting/address/address"
+  ],
+  "window": {
+		"navigationBarTitleText": "二手书屋",
+		"navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "default"
+	},
+	"tabBar": {
+    "list":[
+      {
+        "pagePath": "pages/index/index",
+        "text":"首页",
+        "iconPath": "/images/down1.png",
+        "selectedIconPath": "/images/down1.png"
+      },
+      {
+        "pagePath": "pages/sale/sale",
+        "text":"卖书",
+        "iconPath": "/images/down2.png",
+        "selectedIconPath": "/images/down2.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text":"购物车",
+        "iconPath": "/images/down3.png",
+        "selectedIconPath": "/images/down3.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text":"我的",
+        "iconPath": "/images/down4.png",
+        "selectedIconPath": "/images/down4.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "renderer": "webview",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

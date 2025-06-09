@@ -1,0 +1,81 @@
+<!--index.wxml-->
+<view class="page">
+	<view style="display: flex;flex-direction: row;">
+      <input name="searcher" value="{{seachertext}}" style="margin-left:3px;margin-top:3px;background-color:white; width:80%; line-height:20px;height:27px;border:solid;border-width: 1px;border-color:rgb(146, 145, 145);"bindinput="doseacherinput" placeholder=" 请输入关键词"></input>
+      <button bind:tap="doseacher" style="width:20%; background-color:rgb(120, 187, 187); height:30px;margin-top: 3px;line-height:25px;padding: 0px;">搜索</button>
+	</view>
+
+	<view wx:if="{{isSearching}}" style="text-align: center; margin-top: 10rpx;">
+		<button bind:tap="clearSearch" style="width: 100%;background-color: #f5f5f5; color: #666; font-size: 12px;">清空搜索</button>
+	</view>
+
+	<view style="margin-top: 3px;">
+		<swiper autoplay="true" interval="3000">
+			<swiper-item wx:for="{{bannerlist}}" wx:key="bnkey" wx:for-item="bannering">
+				<image src="{{bannering}}" class="banner"></image>
+			</swiper-item>
+		</swiper>
+	</view>
+
+	<view wx:if="{{isSearching && filteredList.length > 0}}" class="recommend-container">
+		<view class="recommend-title">搜索结果</view>
+		<view class="recommend-list">
+			<view class="recommend-column">
+				<!-- 左侧商品列表 -->
+				<view class="recommend-item" wx:for="{{filteredList}}" wx:key="id" wx:if="{{index % 2 === 0}}">
+					<image src="{{item.image}}" mode="aspectFill" class="recommend-image" data-product="{{item}}" bind:tap="doshowDetail"></image>
+					<view data-product="{{item}}" class="recommend-info"  bind:tap="doshowDetail">
+						<text class="recommend-name">{{item.name}}</text>
+						<text class="recommend-price">¥{{item.price}}</text>
+					</view>
+				</view>
+			</view>
+			<view class="recommend-column">
+				<!-- 右侧商品列表 -->
+				<view class="recommend-item" wx:for="{{filteredList}}" wx:key="id" wx:if="{{index % 2 === 1}}">
+					<image src="{{item.image}}" mode="aspectFill" class="recommend-image" data-product="{{item}}" bind:tap="doshowDetail"></image>
+					<view class="recommend-info"  data-product="{{item}}" bind:tap="doshowDetail">
+						<text class="recommend-name">{{item.name}}</text>
+						<text class="recommend-price">¥{{item.price}}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+
+	<view wx:if="{{isSearching && filteredList.length === 0}}" class = "no-results">
+		<text>没有找到与"{{seachertext}}"相关的书籍</text>
+	</view>
+	
+	<view wx:if="{{!isSearching}}" class="recommend-container">
+		<view class="recommend-list"> 
+			<view class="recommend-title">推荐商品</view>
+			<view style="margin-left: 200px; ">
+				<image bind:tap="doselect" src="/images/shaixuan.png" style="margin-top: 15px;" class="shaixuan"></image>
+				<text bind:tap="doselect" style="margin-top: 10px;font-size: 20px;color: rgb(85, 85, 99);"> 筛选</text>
+			</view>
+		</view>
+		<view class="recommend-list">
+			<view class="recommend-column">
+				<!-- 左侧商品列表 -->
+				<view class="recommend-item" wx:for="{{displayList}}" wx:key="id" wx:if="{{index % 2 === 0}}">
+					<image src="{{item.image}}" mode="aspectFill" class="recommend-image" data-product="{{item}}" bind:tap="doshowDetail"></image>
+					<view class="recommend-info" data-product="{{item}}"  bind:tap="doshowDetail">
+						<text class="recommend-name">{{item.B_name}}</text>
+						<text class="recommend-price">¥{{item.B_price}}</text>
+					</view>
+				</view>
+			</view>
+			<view class="recommend-column">
+				<!-- 右侧商品列表 -->
+				<view class="recommend-item" wx:for="{{displayList}}" wx:key="id" wx:if="{{index % 2 === 1}}">
+					<image src="{{item.image}}" mode="aspectFill" class="recommend-image" data-product="{{item}}" bind:tap="doshowDetail"></image>
+					<view class="recommend-info" data-product="{{item}}" bind:tap="doshowDetail">
+						<text class="recommend-name">{{item.name}}</text>
+						<text class="recommend-price">¥{{item.price}}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

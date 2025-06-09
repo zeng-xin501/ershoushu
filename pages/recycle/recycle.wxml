@@ -1,0 +1,48 @@
+<!--pages/recycle/recycle.wxml-->
+
+ <view class="container">
+  <form bindsubmit="handleSubmit">
+    <view class="form-item">
+      <text>书名：</text>
+      <input name="name" placeholder="请输入书名" />
+    </view>
+    <view class="form-item">
+      <text>分类：</text>
+      <view class="category-container">
+        <picker name="category" bindchange="onCategoryChange" value="{{categoryIndex}}" range="{{categories}}">
+          <view class="picker">
+            {{categories[categoryIndex]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="form-item">
+      <text>新旧程度：</text>
+      <input name="condition" type="number" placeholder="如：5成新" />
+    </view>
+    <view class="form-item">
+      <text>预估价格：</text>
+      <input name="price" type="digit" placeholder="请输入价格" />
+    </view>
+    <view class="form-item">
+      <text>评分：</text>
+      <view class="rating-container">
+        <view class="rating-text">{{rating}}分</view>
+        <slider name="rating" min="0" max="10" step="0.5" value="{{rating}}" show-value="{{false}}" bindchange="onRatingChange" activeColor="#4CAF50" />
+      </view>
+    </view>
+    <view class="form-item">
+      <text>商品图片：</text>
+      <button bindtap="chooseImage">上传图片</button>
+      <image wx:if="{{imageSrc}}" src="{{imageSrc}}" mode="aspectFit"></image>
+    </view>
+    <view class="form-item">
+      <text>详细信息：</text>
+      <textarea name="note" placeholder="请输入书籍详情"></textarea>
+    </view>
+    <view class="button-group">
+      <button class="back-btn" bindtap="goBack">返回</button>
+      <button formType="submit" class="submit-btn">提交</button>
+    </view>
+  </form>
+</view>

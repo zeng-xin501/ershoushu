@@ -1,0 +1,54 @@
+<view class="container" style="width: 758rpx; display: flex; box-sizing: border-box; height: 1445rpx; position: relative; left: -12rpx; top: -20rpx">
+  <!-- 分类标签栏 -->
+  <view class="tab-bar" style="position: relative; left: 0rpx; top: 60rpx; width: 650rpx; display: flex; box-sizing: border-box; height: 100rpx">
+    <view class="tab-item {{currentTab === 'all' ? 'active' : ''}}" 
+          bindtap="switchTab" data-tab="all" style="width: 183rpx; display: block; box-sizing: border-box; left: 0rpx; top: 2rpx; height: 104rpx; position: relative">全部</view>
+    <view class="tab-item {{currentTab === '1' ? 'active' : ''}}" 
+          bindtap="switchTab" data-tab="1" style="position: relative; left: 0rpx; top: 2rpx">待支付</view>
+    <view class="tab-item {{currentTab === '2' ? 'active' : ''}}" 
+          bindtap="switchTab" data-tab="2" style="position: relative; left: 0rpx; top: 0rpx">待发货</view>
+    <view class="tab-item {{currentTab === '3' ? 'active' : ''}}" 
+          bindtap="switchTab" data-tab="3" style="position: relative; left: 1rpx; top: 0rpx">已发货</view>
+    <view class="tab-item {{currentTab === '4' ? 'active' : ''}}" 
+          bindtap="switchTab" data-tab="4" style="width: 189rpx; display: block; box-sizing: border-box; left: 2rpx; top: 0rpx; position: relative">已完成</view>
+  </view>
+  
+  <!-- 订单列表 -->
+  <view class="order-list">
+    <block wx:if="{{filteredOrders.length > 0}}">
+      <view class="order-card" wx:for="{{filteredOrders}}" wx:key="id">
+        <view class="order-header">
+          <text>订单号: {{item.id}}</text>
+          <text class="order-status">{{item.statusText}}</text>
+        </view>
+        
+        <view class="order-goods">
+          <image class="goods-image"  src="{{item.image}}" mode="aspectFill"></image>
+          <view class="goods-info">
+            <text class="goods-title">{{item.name}}</text>
+            <view class="goods-meta">
+              <text class="goods-price">¥{{item.price}}</text>
+              <text class="goods-score">评分: {{item.score}}</text>
+              <text class="goods-condition">新旧: {{item.condition}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="order-footer">
+          <view class="order-actions">
+            <button wx:if="{{item.status === 2}}" 
+                    bindtap="remindShipping" 
+                    data-id="{{item.id}}"
+                    class="action-btn">
+              提醒发货
+            </button>
+          </view>
+        </view>
+      </view>
+    </block>
+    
+    <view wx:else class="empty-tips">
+      <text>暂无待发货订单</text>
+    </view>
+  </view>
+</view>

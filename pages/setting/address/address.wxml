@@ -1,0 +1,77 @@
+<!--pages/setting/address/address.wxml-->
+<!-- pages/address/address.wxml -->
+<view class="address-container">
+  <!-- 地址列表 -->
+  <view class="address-list">
+    <view class="address-item" wx:for="{{addressList}}" wx:key="id" data-index="{{index}}">
+      <view class="address-content">
+        <view class="address-header">
+          <text class="name">{{item.name}}</text>
+          <text class="phone">{{item.phone}}</text>
+          <text class="default-tag" wx:if="{{item.isDefault}}">默认</text>
+        </view>
+        <view class="address-detail">
+          <text>{{item.province}} {{item.city}} {{item.district}}</text>
+          <text class="detail">{{item.detail}}</text>
+        </view>
+      </view>
+      <view class="address-actions">
+        <view class="action-item" bindtap="setDefault" data-index="{{index}}">
+         
+          <text>设为默认</text>
+        </view>
+        <view class="action-item" bindtap="editAddress" data-index="{{index}}">
+         
+          <text>编辑</text>
+        </view>
+        <view class="action-item" bindtap="deleteAddress" data-index="{{index}}">
+         
+          <text>删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加新地址按钮 -->
+  <view class="add-btn" bindtap="addNewAddress">
+    
+    <text>添加新地址</text>
+  </view>
+
+  <!-- 地址编辑弹窗 -->
+  <view class="address-modal" wx:if="{{showModal}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text>{{isEdit ? '编辑地址' : '新增地址'}}</text>
+       
+      </view>
+      <view class="form-item">
+        <text class="label">收货人</text>
+        <input class="input" placeholder="请输入收货人姓名" value="{{currentAddress.name}}" bindinput="inputName"></input>
+      </view>
+      <view class="form-item">
+        <text class="label">手机号码</text>
+        <input class="input" type="number" placeholder="请输入手机号码" value="{{currentAddress.phone}}" bindinput="inputPhone"></input>
+      </view>
+      <view class="form-item">
+        <text class="label">所在地区</text>
+        <picker mode="region" value="{{region}}" bindchange="regionChange">
+          <view class="picker">
+  {{currentAddress.province && currentAddress.city && currentAddress.district ? 
+    currentAddress.province + ' ' + currentAddress.city + ' ' + currentAddress.district : 
+    '请选择省市区'}}
+</view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <text class="label">详细地址</text>
+        <input class="input" placeholder="街道、楼牌号等" value="{{currentAddress.detail}}" bindinput="inputDetail"></input>
+      </view>
+      <view class="form-item">
+        <checkbox checked="{{currentAddress.isDefault}}" bindtap="toggleDefault"></checkbox>
+        <text>设为默认地址</text>
+      </view>
+      <button class="save-btn" bindtap="saveAddress">保存</button>
+    </view>
+  </view>
+</view>

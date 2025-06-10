@@ -1,1 +1,227 @@
+本文使用的是Node.js+express的方法
 需要MySQL数据库中创建数据库book代码如下：
+CREATE TABLE B_CLASS(
+	B_class_id VARCHAR(20) PRIMARY KEY,
+	B_class_name VARCHAR(20)
+);
+	
+CREATE TABLE Book(
+	B_score DOUBLE,
+	B_price DOUBLE,
+	B_status INT,
+	B_description VARCHAR(300),
+	B_name VARCHAR(50)  NOT NULL,
+	B_class_id VARCHAR(20),
+	B_ID VARCHAR(500) PRIMARY KEY, 
+	B_new VARCHAR(7),
+	B_like INT,
+	B_comment VARCHAR(50),
+	B_picture BLOB,
+	FOREIGN KEY (B_class_id) REFERENCES B_class(B_class_id)
+);
+
+CREATE TABLE Users(
+     User_id varchar(20)PRIMARY KEY,
+     U_phone  varchar(20),
+     U_name varchar(20),
+     U_Password VARCHAR(20) ,
+     U_address varchar(50),
+     U_register_time varchar (11),
+     U_credit_score float,
+     U_photo blob,
+    );
+
+CREATE TABLE Sale_book(
+	 User_id varchar(20),
+	 B_id varchar(200),
+	 FOREIGN KEY (B_id) REFERENCES Book(B_id),
+	 FOREIGN KEY (User_id) REFERENCES Users(User_id)
+);
+     
+CREATE TABLE U_Collect(
+    U_id varchar(20),
+    B_id varchar(500),
+    FOREIGN KEY (U_id) REFERENCES Users(User_id),
+    FOREIGN KEY (B_id) REFERENCES Book(B_id),
+    PRIMARY KEY (U_id,B_id)
+);
+   
+	CREATE TABLE B_Order(
+	Order_num VARCHAR(500) PRIMARY KEY,
+	B_ID VARCHAR(500),
+	Buyer_id VARCHAR(20),
+	Seller_id VARCHAR(20),
+	FOREIGN KEY (B_ID) REFERENCES Book(B_ID),
+    FOREIGN KEY (Buyer_id) REFERENCES Users(User_id),
+    FOREIGN KEY (Seller_id) REFERENCES Users(User_id)
+);  
+  
+ -- 创建状态码表（保证状态一致性）
+CREATE TABLE Status_Codes(
+  O_status SMALLINT PRIMARY KEY,
+  description VARCHAR(20) NOT NULL
+);
+
+-- 插入标准状态
+INSERT INTO Status_Codes VALUES 
+  (1, '待支付'), (2, '待发货'), (3, '待收货'), 
+  (4, '已完成'), (5, '已评价'), (6, '退货中');
+
+-- 修改订单状态表
+ALTER TABLE Order_Status
+  ADD FOREIGN KEY (O_status) REFERENCES Status_Codes(status_id);
+
+-- 统一事务状态表
+CREATE TABLE Order_Status(
+  Order_num VARCHAR(500) NOT NULL,
+  O_status SMALLINT NOT NULL,  -- 状态类型
+  R_tacking_num VARCHAR(30),    -- 动态数据
+  P_way VARCHAR(100),           -- 动态数据
+  PRIMARY KEY (Order_num),
+  FOREIGN KEY (Order_num) REFERENCES B_Order(Order_num),
+  FOREIGN KEY (R_tacking_num) REFERENCES Logistics_info(R_tacking_num)
+);
+
+CREATE TABLE Logistics_info (
+ R_tacking_num varchar(30) PRIMARY KEY ,
+     L_status VARCHAR(30),
+     content_name varchar(10),
+     content_phone VARCHAR(15)
+   );
+CREATE TABLE Payment_Methods(
+   method_id  INT PRIMARY KEY ,
+        method_name VARCHAR(50)
+    );
+INSERT INTO B_class(b_class_id, b_class_name)
+VALUES ('1', '历史'),('2','悬疑'),('3', '科幻'),('4', '社会'),('5', '奇幻'),
+('6', '权谋'),('7', '魔幻现实'),('8', '恐怖惊悚'),('9', '武侠仙侠'),('10', '言情'),('11', '青春校园'),('12','家庭伦路'),('13', '末日废土'),('14','穿越重生'),
+('15','系统文无限流'),('16', '赛博朋克'),('17', '蒸汽朋克'),('18', '快穿'),
+('19', 'ABO'),('20', '种田文'),('21', '同人文'),('22','乡土农村'),('23', '职业行业'),('24', '自然科学'),('25', '哲学'),('26', '经济商业'),('27', '自我提升'),
+('28', '旅行'),('29', '艺术'),('30', '健康'),('31', '散文'),('32', '诗歌'),
+('33', '戏剧'),('34', '工具书'),('35', '教材'),('36', '漫画'),('37', '儿童读物'),('38', '女性主义');
+
+INSERT INTO Book(b_id, b_name, b_score, b_price, b_status,b_description,b_class_id,b_new)
+VALUES(1, '达芬奇密码', 7.5, 42, 1,
+'作者：丹•布朗, 简介：黎出差的哈佛大学教授罗伯特·兰登午夜接到匿名电话，得知卢浮宫博物馆馆长雅克·索尼埃被害，于是应召来到博物馆，对一系列与达·芬奇的艺术作品有关联的神秘符号进行分析和调查。在与索尼埃的孙女、密码破译天才索菲·奈芙联手对诸多奇形怪状的符号及密码进行整理的过程中，他发现一连串的线索就隐藏在达·芬奇的艺术作品当中。他发现了能解开历史上难解之谜的一把钥匙，并与奈芙跟一位神秘的幕后操纵者展开了斗智斗勇的角逐，而他自己也因此成为一名被追逐者。除非他们能解开这个错综复杂的谜，否则，郇山隐修会苦心掩盖的惊天大秘密以及令人震惊的古老真相，终将永远消失。',
+'1','九五成'),
+..................
+(96, '厌女',9.1 ,30, 1,
+'作者:上野千鹤子,京东上天津人民出版社版售价约21.8元 简介:通过文学作品和社会现象，挖掘“厌女”现象根源，指出“厌女症”在历史与社会中的普遍性，呼吁人们认识并与之斗争，是理解性别议题的重要书籍。',
+'38','九五成');
+
+INSERT INTO Users(user_id, u_phone, u_name, u_password,u_address,u_register_time)
+VALUES(1, '15237669157', '小鱼', 'jj050501', '河南省信阳市紫水街道', '2025.4.20'),
+(2,'16611619183','流星锤','hc0715','海南','2025.4.20'),
+(3,'13945678910','龙大侠','woshilongdaxia','云南大理白族自治区','2025.4.20'),
+(4,'15678910234','中西医','haizhiyan','北京故宫','2025.4.20');
+INSERT INTO Sale_book(user_id, B_id)
+VALUES(3, 3),(2, 4),(1, 5),(3,6 ),(3,7 ),(2, 41),(1, 1),(3, 8),(2,9 ),(3, 10),
+(3,11),(2, 12),(1,13),(3, 14),(3, 2),(4, 15),(2, 16),(1, 17),(4, 18),(4, 19),
+(2, 20),(1, 21),(4, 22),(3, 23),(2, 24),(1, 25),(4, 26),(2, 27),(1, 28),
+(4, 29),(4, 30),(1, 31),(2, 32),(1, 33),(2, 34),(1, 35),(2, 36),(1, 37),
+(4, 39),(1, 38),(4, 40),(1, 42);
+
+
+
+（三）安全性：安全性相关的方案设计，例如该应用系统采用登录管理、视图等不同的安全机制进行安全性控制。在权限管理中，具体的角色、用户、库表字段控制权限等设计，要求写出对应的SQL语句。
+//安全性
+-- 密码加密存储示例（应用层实现）
+ALTER TABLE Users 
+  CHANGE U_Password U_Password_Hash CHAR(60); -- bcrypt哈希值
+
+
+（四）完整性：实施三类完整性约束，建议采用触发器等实现完整性等高阶功能，要求写出对应的SQL语句。
+
+//完整性
+-- 添加字段级约束
+ALTER TABLE Book ADD CHECK(B_price >= 0);
+ALTER TABLE Users ADD CHECK(U_phone REGEXP '^[0-9]{11}$');
+
+-- 修复 Sale_book 表
+ALTER TABLE Sale_book ADD PRIMARY KEY (User_id, B_id);
+
+-- 添加信用分约束
+ALTER TABLE Users ADD CHECK(U_credit_score BETWEEN 300 AND 1000);
+
+-- 添加订单时间字段
+ALTER TABLE B_Order ADD COLUMN Order_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+
+
+
+
+触发器
+-- 创建调试表
+CREATE TABLE IF NOT EXISTS debug_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+//CREATE TABLE order_sequence (
+    current_val INT NOT NULL DEFAULT 0
+);
+INSERT INTO order_sequence VALUES (0);  -- 初始化
+
+
+//DELIMITER //
+CREATE TRIGGER after_book_status_update
+AFTER UPDATE ON Book
+FOR EACH ROW
+BEGIN
+    -- 获取并递增序列值
+    UPDATE order_sequence SET current_val = current_val + 1;
+    SELECT current_val INTO @order_num FROM order_sequence LIMIT 1;
+    
+    -- 主逻辑
+    IF NEW.B_status = 2 THEN
+        INSERT INTO B_Order (Order_num, B_id, Seller_id, Buyer_id)
+        SELECT LPAD(@order_num, 10, '0'), NEW.B_id, User_id, '2'  -- 补零到10位
+        FROM Sale_book 
+        WHERE B_id = NEW.B_id
+        LIMIT 1;
+    END IF;
+END//
+DELIMITER ;
+
+DROP TABLE IF EXISTS U_Collect;
+
+
+DELIMITER //
+
+CREATE TRIGGER after_book_like_update
+AFTER UPDATE ON Book
+FOR EACH ROW
+BEGIN
+    -- 检查B_like是否从NULL变为1
+    IF OLD.B_like IS NULL AND NEW.B_like = 1 THEN
+        -- 声明变量存储卖家ID
+        DECLARE seller_id VARCHAR(20);
+        
+        -- 从Sale_book获取User_id
+        SELECT User_id INTO seller_id
+        FROM Sale_book
+        WHERE B_id = NEW.B_id
+        LIMIT 1;
+        
+        -- 如果找到卖家，则插入收藏记录（只需要U_id和B_id）
+        IF seller_id IS NOT NULL THEN
+            BEGIN
+                DECLARE CONTINUE HANDLER FOR 1062 -- 处理重复键错误
+                BEGIN
+                    -- 可以记录错误到日志表（可选）
+                    INSERT INTO error_log (message, error_time) 
+                    VALUES (CONCAT('Duplicate entry for U_id:', seller_id, ' and B_id:', NEW.B_id), NOW());
+                END;
+                
+                -- 插入收藏记录（只需要U_id和B_id）
+                INSERT INTO U_Collect (U_id, B_id)
+                VALUES (seller_id, NEW.B_id);
+            END;
+        END IF;
+    END IF;
+END//
+
+DELIMITER ;
+
